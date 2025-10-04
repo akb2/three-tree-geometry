@@ -1,5 +1,6 @@
 import { round } from "@akb2/math";
 import { BufferGeometry, Float32BufferAttribute, Vector2, Vector3 } from "three";
+import { searchBranchPoints } from "./helpers";
 import { BuildData, TreeGeometryParams } from "./models";
 import { Tree } from "./tree";
 import { TreeBranch } from "./tree-branch";
@@ -10,23 +11,7 @@ export class TreeGeometry extends BufferGeometry {
   private positionsOfBranches: Vector3[] = [];
   override type: string = "TreeGeometry";
 
-  get getEndsOfBranches(): Vector3[] {
-    const points: Vector3[] = [];
-    // Функция поиска данных
-    const search = (node: TreeBranch) => {
-      if (node.children.length > 0) {
-        node.children.forEach(n => search(n));
-      }
-      // Добавить точки
-      if (node.children.length <= this.parameters.generations && node.children.length > 0) {
-        points.push(node.to);
-      }
-    };
-    // Поиск данных
-    search(this.tree.root);
-    // Вернуть вершины
-    return points;
-  }
+  branchesEnds: Vector3[] = [];
 
   // Список точек на ветках
   getPositionsOfBranches(skip: number = 0): Vector3[] {
@@ -55,6 +40,7 @@ export class TreeGeometry extends BufferGeometry {
     // Определение параметров
     this.parameters = parameters;
     this.tree = new Tree(this.parameters);
+    this.branchesEnds = searchBranchPoints(this.tree.root, this.parameters.generations);
     // Построение геометрии
     const [vertices, faces, faceVertexUvs]: BuildData = this.buildBranches(this.tree.root);
     const position: number[] = [];
@@ -79,6 +65,7 @@ export class TreeGeometry extends BufferGeometry {
     this.tree = source.tree;
     this.positionsOfBranches = source.positionsOfBranches?.map(v => v.clone()) ?? [];
     this.parameters = { ...source.parameters };
+    this.branchesEnds = searchBranchPoints(this.tree.root, this.parameters.generations);
     // Вернуть текущий экземпляр
     return this;
   }

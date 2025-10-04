@@ -1,5 +1,6 @@
 import { random } from "@akb2/math";
 import { Euler, Matrix4, Vector2 } from "three";
+import { TreeBranch } from "./tree-branch";
 
 export class TreeSpawner {
   constructor(
