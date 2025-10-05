@@ -1,4 +1,5 @@
 import { round } from "@akb2/math";
+import { createArray } from "@akb2/types-tools";
 import { BufferGeometry, Float32BufferAttribute, Vector2, Vector3 } from "three";
 import { searchBranchPoints } from "./helpers";
 import { BuildData, TreeGeometryParams } from "./models";
@@ -106,19 +107,19 @@ export class TreeGeometry extends BufferGeometry {
     const vertices: Vector3[] = [];
     let index: number = 0;
     // Цикл по сегментам высоты
-    CreateArray(heightSegments + 1).forEach(y => {
+    createArray(heightSegments + 1).forEach(y => {
       const indicesRow: number[] = [];
       const segment = branch.segments[y];
       // Добавить параметры
       vertices.push(...segment.vertices);
       uvs.push(...segment.uvs);
       // Цикл по сегментам радиуса
-      CreateArray(radiusSegments + 1).forEach(() => indicesRow.push(index++));
+      createArray(radiusSegments + 1).forEach(() => indicesRow.push(index++));
       // Добавить индексы
       indices.push(indicesRow);
     });
     // Создание сторон
-    CreateArray(heightSegments).forEach(y => CreateArray(radiusSegments).forEach(x => {
+    createArray(heightSegments).forEach(y => createArray(radiusSegments).forEach(x => {
       const cy: number = y;
       const ny: number = y + 1;
       const cx: number = x;
@@ -138,7 +139,7 @@ export class TreeGeometry extends BufferGeometry {
       vertices.push(bottom.position);
       uvs.push(...bottom.uvs);
       // Цикл по сегментам радиуса
-      CreateArray(radiusSegments).map(x => {
+      createArray(radiusSegments).map(x => {
         const v1: number = indices[0][x] + offset;
         const v2: number = indices[0][x + 1] + offset;
         const v3: number = index + offset;
@@ -149,13 +150,13 @@ export class TreeGeometry extends BufferGeometry {
     // Остальные фрагменты
     else {
       const from: TreeSegment = branch.from;
-      const bottomIndices: number[] = CreateArray(radiusSegments + 1).map(() => (index++) + offset);
+      const bottomIndices: number[] = createArray(radiusSegments + 1).map(() => (index++) + offset);
       // Добавить индексы
       vertices.push(...from.vertices);
       uvs.push(...from.uvs);
       indices.push(bottomIndices);
       // Цикл по радиальным сегментам
-      CreateArray(radiusSegments).forEach(x => {
+      createArray(radiusSegments).forEach(x => {
         const v0: number = indices[0][x] + offset;
         const v1: number = indices[0][x + 1] + offset;
         const v2: number = bottomIndices[x];

@@ -1,3 +1,4 @@
+import { createArray } from "@akb2/types-tools";
 import { Matrix4, Vector2, Vector3 } from "three";
 
 export class TreeSegment {
@@ -13,7 +14,7 @@ export class TreeSegment {
   ) {
     const thetaLength: number = Math.PI * 2;
     // Цикл по сегментам
-    CreateArray(this.radiusSegments + 1).forEach(x => {
+    createArray(this.radiusSegments + 1).forEach(x => {
       const u = x / this.radiusSegments;
       const uv = new Vector2(u, this.uvOffset);
       const vertex = new Vector3(this.radius * Math.sin(u * thetaLength), 0, this.radius * Math.cos(u * thetaLength))

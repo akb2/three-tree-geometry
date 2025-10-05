@@ -1,3 +1,4 @@
+import { createArray, MultiArray } from "@akb2/types-tools";
 import { CatmullRomCurve3, Euler, Matrix4, Vector3 } from "three";
 import { TreeGeometryParams } from "./models";
 import { TreeSegment } from "./tree-segment";
@@ -107,7 +108,7 @@ export class TreeBranch implements Omit<TreeGeometryParams, "spawner"> {
     // Добавить сегмент
     segments.push(new TreeSegment(points[0], rotation, uvOffset, fromRadius, radiusSegments));
     // Цикл по сегментам
-    CreateArray(heightSegments - 1).map(i => i + 1).forEach(i => {
+    createArray(heightSegments - 1).map(i => i + 1).forEach(i => {
       const p0: Vector3 = points[i];
       const p1: Vector3 = points[i + 1];
       const ry: number = i / (heightSegments - 1);
@@ -124,7 +125,8 @@ export class TreeBranch implements Omit<TreeGeometryParams, "spawner"> {
 
   // Ветка
   branch(spawner: TreeSpawner, count: number): void {
-    CreateArray(count).forEach(i => this.spawn(spawner, i == 0));
+    createArray(count).forEach(i => this.spawn(spawner, i == 0));
+
     this.children.forEach(child => child.branch(spawner, count - 1));
   }
 
@@ -154,7 +156,7 @@ export class TreeBranch implements Omit<TreeGeometryParams, "spawner"> {
     const segments: TreeSegment[] = this.segments;
     let length: number = 0;
     // Цикл по сегментам
-    CreateArray(segments.length).forEach(i => {
+    createArray(segments.length).forEach(i => {
       const p0: Vector3 = segments[i].position;
       const p1: Vector3 = segments[i + 1].position;
       //  Добавить длину
