@@ -1,6 +1,6 @@
 {
   "name": "@akb2/three-tree-geometry",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Tree geomentry for Three.js",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -44,7 +44,7 @@
     "typescript": "^5.4.0"
   },
   "scripts": {
-    "build": "tsup src/index.ts --dts --format esm,cjs --clean --out-dir dist",
+    "build": "tsup src/index.ts --dts --format esm,cjs --clean --out-dir dist --minify",
     "prepublishOnly": "npm run build"
   }
 }
