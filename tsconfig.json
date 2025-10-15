@@ -7,7 +7,14 @@
     "moduleResolution": "Bundler",
     "skipLibCheck": true,
     "outDir": "dist",
-    "rootDir": "src"
+    "rootDir": "src",
+    "esModuleInterop": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "preact",
+    "types": [
+      "vite/client",
+      "@storybook/preact"
+    ]
   },
   "include": [
     "src"
