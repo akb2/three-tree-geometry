@@ -33,15 +33,19 @@
   },
   "peerDependencies": {
     "@akb2/math": ">=1 <2",
+    "@akb2/types-tools": ">=1 <2",
     "@types/three": ">=0.159 <1",
     "three": ">=0.159 <1"
   },
   "devDependencies": {
-    "@akb2/math": "^1.0.0",
-    "@types/three": "^0.159.0",
-    "three": "^0.159.0",
     "tsup": "^8.0.0",
     "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "@akb2/math": "^1.0.0",
+    "@akb2/types-tools": "^1.0.0",
+    "@types/three": "^0.159.0",
+    "three": "^0.159.0"
   },
   "scripts": {
     "build": "tsup src/index.ts --dts --format esm,cjs --clean --out-dir dist --minify",

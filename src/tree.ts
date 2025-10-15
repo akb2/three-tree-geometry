@@ -1,3 +1,4 @@
+import { MultiArray } from "@akb2/types-tools";
 import { Euler, Matrix4, Vector3 } from "three";
 import { TreeGeometryParams } from "./models";
 import { TreeBranch } from "./tree-branch";
